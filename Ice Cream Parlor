@@ -1,0 +1,12 @@
+vector<int> icecreamParlor(int m, vector<int> arr) {
+     unordered_map<int, int> costIndexMap; // Maps cost to index
+    for (int i = 0; i < (int)arr.size(); i++) {
+        int complement = m - arr[i];
+        if (costIndexMap.count(complement)) {
+            // Return indices +1 for 1-based indexing
+            return {costIndexMap[complement] + 1, i + 1};
+        }
+        costIndexMap[arr[i]] = i;
+    }
+    return {};
+}
