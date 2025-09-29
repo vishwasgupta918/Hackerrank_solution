@@ -1,0 +1,34 @@
+int downToZero(int n) {
+    if (n == 0) return 0;
+
+    unordered_set<int> visited;
+    queue<pair<int,int>> q; // {current value, moves}
+    q.push({n, 0});
+    visited.insert(n);
+
+    while (!q.empty()) {
+        auto [curr, moves] = q.front();
+        q.pop();
+
+        if (curr == 0) return moves;
+
+        // Operation 1: decrease by 1
+        if (visited.find(curr - 1) == visited.end() && curr - 1 >= 0) {
+            visited.insert(curr - 1);
+            q.push({curr - 1, moves + 1});
+        }
+
+        // Operation 2: for all factors i of curr (i*i <= curr), enqueue max(i, curr/i)
+        for (int i = (int) sqrt(curr); i >= 2; i--) {
+            if (curr % i == 0) {
+                int next = max(i, curr / i);
+                if (visited.find(next) == visited.end()) {
+                    visited.insert(next);
+                    q.push({next, moves + 1});
+                }
+            }
+        }
+    }
+
+    return -1; // Should not reach here
+}
