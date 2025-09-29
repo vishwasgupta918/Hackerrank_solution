@@ -1,0 +1,16 @@
+ string winner = "Richard";
+    while (n>1) {
+        winner=(winner=="Richard")?"Louise":"Richard";
+        // If n is a power of 2, reduce by dividing by 2
+        if((n&(n-1))==0){
+            n>>=1;
+        }else{
+            // Otherwise reduce n by the largest power of 2 less than n
+            long power=1L<<62;
+            while(power>n) {
+                power>>=1;
+            }
+            n-=power;
+        }
+    }
+    return winner;
