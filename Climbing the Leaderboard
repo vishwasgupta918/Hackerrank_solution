@@ -1,0 +1,26 @@
+vector<int> climbingLeaderboard(vector<int> ranked, vector<int> player) {
+    vector<int> uniqueRanks;
+    uniqueRanks.push_back(ranked[0]);
+    for (int i = 1; i <ranked.size(); i++) {
+        
+        
+        if (ranked[i] != ranked[i - 1]) {
+            uniqueRanks.push_back(ranked[i]);
+        }
+    }
+    
+    vector<int> results;
+    int n = uniqueRanks.size();
+    int index = n - 1;  // Start from the lowest rank
+    
+    for (int score : player) {
+        // Move index while player score >= leaderboard score
+        while (index >= 0 && score >= uniqueRanks[index]) {
+            index--;
+        }
+        results.push_back(index + 2);  // Rank is index+2 because index is 0-based and ranks start from 1
+    }
+    
+    return results;
+
+}
