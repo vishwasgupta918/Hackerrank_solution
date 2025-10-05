@@ -1,0 +1,21 @@
+int pylons(int k, int n, int* arr) {
+    int c = 0;  // count of power plants
+    int i = 0;  // index of first city to cover
+
+    while (i < n) {
+        int loc = (i + k - 1 < n - 1) ? i + k - 1 : n - 1;  // farthest city that can cover city i
+
+        // Move left to find suitable city for plant
+        while (loc >= i - k + 1 && loc >= 0 && arr[loc] == 0) {
+            loc--;
+        }
+
+        // No suitable city found
+        if (loc < i - k + 1 || loc < 0) return -1;
+
+        c++;              // place plant
+        i = loc + k;      // move to first city not covered by this plant
+    }
+
+    return c;
+}
